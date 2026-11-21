@@ -120,7 +120,7 @@
             </div>
         </section>
 
-        <!-- 6 & 7. Ticket Booking Form & Booking Summary Card -->
+        <!-- 6 & 7. Ticket Booking Form & Live Booking Summary Card -->
         <section id="book-ticket">
             <h2>Book Your Ticket</h2>
             <p style="margin-bottom: 1rem; color: var(--text-muted);">
@@ -132,10 +132,10 @@
                     <div class="form-group">
                         <label for="match-select">Select Match</label>
                         <select id="match-select" name="match" required>
-                            <option value="">-- Choose a Match --</option>
-                            <option value="Match 1: CSK vs RCB">Match 1: CSK vs RCB (Chennai)</option>
-                            <option value="Match 2: MI vs KKR">Match 2: MI vs KKR (Mumbai)</option>
-                            <option value="Match 3: RCB vs SRH">Match 3: RCB vs SRH (Bengaluru)</option>
+                            <option value="" data-general="1500" data-premium="3500" data-vip="8000">-- Choose a Match --</option>
+                            <option value="Match 1: CSK vs RCB" data-general="1500" data-premium="3500" data-vip="8000">Match 1: CSK vs RCB (Chennai)</option>
+                            <option value="Match 2: MI vs KKR" data-general="1800" data-premium="4000" data-vip="9500">Match 2: MI vs KKR (Mumbai)</option>
+                            <option value="Match 3: RCB vs SRH" data-general="2000" data-premium="4500" data-vip="10000">Match 3: RCB vs SRH (Bengaluru)</option>
                         </select>
                     </div>
 
@@ -143,9 +143,9 @@
                         <label for="stand-category">Stand Category</label>
                         <select id="stand-category" name="stand" required>
                             <option value="">-- Select Stand --</option>
-                            <option value="General">General Stand (₹1,500)</option>
-                            <option value="Premium">Premium Stand (₹3,500)</option>
-                            <option value="VIP">VIP Hospitality Box (₹8,000)</option>
+                            <option value="General">General Stand</option>
+                            <option value="Premium">Premium Stand</option>
+                            <option value="VIP">VIP Hospitality Box</option>
                         </select>
                     </div>
 
@@ -177,15 +177,15 @@
                     <h3>Booking Summary</h3>
                     <div class="summary-item">
                         <span>Match:</span>
-                        <strong id="summary-match">Match 1: CSK vs RCB</strong>
+                        <strong id="summary-match">Not Selected</strong>
                     </div>
                     <div class="summary-item">
                         <span>Stand:</span>
-                        <strong id="summary-stand">General Stand</strong>
+                        <strong id="summary-stand">Not Selected</strong>
                     </div>
                     <div class="summary-item">
                         <span>Ticket Price:</span>
-                        <strong id="summary-price">₹1,500</strong>
+                        <strong id="summary-price">₹0</strong>
                     </div>
                     <div class="summary-item">
                         <span>Quantity:</span>
@@ -193,7 +193,7 @@
                     </div>
                     <div class="summary-total">
                         <span>Total Amount:</span>
-                        <span id="summary-total">₹1,500</span>
+                        <span id="summary-total">₹0</span>
                     </div>
                 </aside>
             </div>
@@ -252,7 +252,7 @@
         <p>&copy; 2026 IPL Ticket Booking Portal. All Rights Reserved.</p>
     </footer>
 
-    <!-- Activity 5: Link External JavaScript -->
+    <!-- Link External JavaScript -->
     <script src="app.js"></script>
 </body>
 </html>
