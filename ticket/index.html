@@ -15,6 +15,7 @@
             <ul>
                 <li><a href="#matches">Matches</a></li>
                 <li><a href="#book-ticket">Book Ticket</a></li>
+                <li><a href="booking.html">Full Booking Page</a></li>
                 <li><a href="#my-bookings">My Bookings</a></li>
                 <li><a href="#guidelines">Guidelines</a></li>
             </ul>
@@ -96,7 +97,7 @@
                             <td>22 Mar 2026, 7:30 PM IST</td>
                             <td>M. A. Chidambaram Stadium, Chennai</td>
                             <td>₹1,500 / ₹3,500 / ₹8,000</td>
-                            <td><a href="#book-ticket" class="btn btn-primary">Book</a></td>
+                            <td><a href="#book-ticket" class="btn btn-primary schedule-book-btn">Book</a></td>
                         </tr>
                         <tr>
                             <td>Match 2</td>
@@ -104,7 +105,7 @@
                             <td>23 Mar 2026, 7:30 PM IST</td>
                             <td>Wankhede Stadium, Mumbai</td>
                             <td>₹1,800 / ₹4,000 / ₹9,500</td>
-                            <td><a href="#book-ticket" class="btn btn-primary">Book</a></td>
+                            <td><a href="#book-ticket" class="btn btn-primary schedule-book-btn">Book</a></td>
                         </tr>
                         <tr>
                             <td>Match 3</td>
@@ -112,7 +113,7 @@
                             <td>25 Mar 2026, 7:30 PM IST</td>
                             <td>M. Chinnaswamy Stadium, Bengaluru</td>
                             <td>₹2,000 / ₹4,500 / ₹10,000</td>
-                            <td><a href="#book-ticket" class="btn btn-primary">Book</a></td>
+                            <td><a href="#book-ticket" class="btn btn-primary schedule-book-btn">Book</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -122,9 +123,12 @@
         <!-- 6 & 7. Ticket Booking Form & Booking Summary Card -->
         <section id="book-ticket">
             <h2>Book Your Ticket</h2>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">
+                Quick-book below or open the <a href="booking.html" style="color: var(--primary-color); font-weight: 700;">Dedicated Booking Form Page</a> for add-on preferences.
+            </p>
             <div class="booking-container">
                 <!-- Ticket Booking Form -->
-                <form action="#my-bookings" method="get">
+                <form id="quick-booking-form" action="#my-bookings" method="get">
                     <div class="form-group">
                         <label for="match-select">Select Match</label>
                         <select id="match-select" name="match" required>
@@ -152,7 +156,7 @@
 
                     <div class="form-group">
                         <label for="full-name">Full Name</label>
-                        <input type="text" id="full-name" name="name" placeholder="Enter your full name" required>
+                        <input type="text" id="full-name" name="name" placeholder="Enter your full name" minlength="3" maxlength="50" required>
                     </div>
 
                     <div class="form-group">
@@ -162,7 +166,7 @@
 
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+                        <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" pattern="[6-9][0-9]{9}" minlength="10" maxlength="10" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Confirm Booking</button>
@@ -211,7 +215,6 @@
                         </tr>
                     </thead>
                     <tbody id="bookings-table-body">
-                        <!-- Empty table row placeholder for future booking records -->
                         <tr>
                             <td colspan="6" style="text-align: center; color: #64748b;">
                                 No booking records found yet. Use the form above to book your tickets.
@@ -233,7 +236,7 @@
 
                 <article class="guideline-card">
                     <h3>ID Proof Requirement</h3>
-                    <p>Carry a valid government-issued photo ID (Aadhaar Card, PAN Card, Passport, or Driving License) matching the attendee name entered during booking for security verification.</p>
+                    <p>Carry a valid government-issued photo ID (National ID, PAN Card, Passport, or Driving License) matching the attendee name entered during booking for security verification.</p>
                 </article>
 
                 <article class="guideline-card">
@@ -248,14 +251,8 @@
     <footer>
         <p>&copy; 2026 IPL Ticket Booking Portal. All Rights Reserved.</p>
     </footer>
-<!-- 10. Simple Footer -->
-    <footer>
-        <p>&copy; 2026 IPL Ticket Booking Portal. All Rights Reserved.</p>
-    </footer>
 
-    <!-- Link app.js here -->
+    <!-- Activity 5: Link External JavaScript -->
     <script src="app.js"></script>
-</body>
-</html>
 </body>
 </html>
