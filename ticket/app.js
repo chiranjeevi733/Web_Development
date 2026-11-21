@@ -1,5 +1,5 @@
 /**
- * IPL 2026 Ticket Booking - User Interaction & Live Booking Summary
+ * IPL 2026 Ticket Booking - Responsive Layout & Interactive Controls
  */
 
 // 1. Reusable Toast Notification Function
@@ -28,27 +28,98 @@ function showToast(message, type = "info") {
     }, 3500);
 }
 
-// 2. DOM Selection & Event Listeners
+// 2. Initialize Interactive Features on DOM Load
 document.addEventListener("DOMContentLoaded", () => {
-    // Section & Form Selectors
+    /* ---------------------------------------------------------
+       A. Mobile Hamburger Menu Toggle
+       --------------------------------------------------------- */
+    const menuToggle = document.getElementById("menu-toggle");
+    const navLinks = document.getElementById("nav-links");
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener("click", () => {
+            const isOpen = navLinks.classList.toggle("active");
+            menuToggle.classList.toggle("open", isOpen);
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        // Close mobile menu when a navigation link is clicked
+        navLinks.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+                navLinks.classList.remove("active");
+                menuToggle.classList.remove("open");
+                menuToggle.setAttribute("aria-expanded", "false");
+            });
+        });
+    }
+
+    /* ---------------------------------------------------------
+       B. Filter Match Cards by Team & Toggle Grid / List View
+       --------------------------------------------------------- */
+    const teamFilter = document.getElementById("team-filter");
+    const matchContainer = document.getElementById("match-cards-container");
+    const matchCards = document.querySelectorAll(".match-card");
+    const gridViewBtn = document.getElementById("grid-view-btn");
+    const listViewBtn = document.getElementById("list-view-btn");
+
+    if (teamFilter) {
+        teamFilter.addEventListener("change", () => {
+            const selectedTeam = teamFilter.value;
+            let visibleCount = 0;
+
+            matchCards.forEach((card) => {
+                const teams = card.dataset.teams || "";
+                if (selectedTeam === "all" || teams.includes(selectedTeam)) {
+                    card.style.display = "flex";
+                    visibleCount++;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            showToast(
+                selectedTeam === "all"
+                    ? "Showing all IPL 2026 matches."
+                    : `Filtered: ${visibleCount} match(es) featuring ${selectedTeam}.`,
+                "info"
+            );
+        });
+    }
+
+    if (gridViewBtn && listViewBtn && matchContainer) {
+        gridViewBtn.addEventListener("click", () => {
+            matchContainer.classList.remove("list-view");
+            gridViewBtn.classList.add("active");
+            listViewBtn.classList.remove("active");
+            showToast("Switched to Grid View.", "info");
+        });
+
+        listViewBtn.addEventListener("click", () => {
+            matchContainer.classList.add("list-view");
+            listViewBtn.classList.add("active");
+            gridViewBtn.classList.remove("active");
+            showToast("Switched to List View.", "info");
+        });
+    }
+
+    /* ---------------------------------------------------------
+       C. Live Booking Summary Calculation
+       --------------------------------------------------------- */
     const bookingSection = document.getElementById("book-ticket");
     const matchSelect = document.getElementById("match-select");
     const standSelect = document.getElementById("stand-category");
     const qtyInput = document.getElementById("ticket-qty");
 
-    // Booking Summary Card Selectors
     const summaryMatch = document.getElementById("summary-match");
     const summaryStand = document.getElementById("summary-stand");
     const summaryPrice = document.getElementById("summary-price");
     const summaryQty = document.getElementById("summary-qty");
     const summaryTotal = document.getElementById("summary-total");
 
-    // Helper: Format numbers in Indian Rupee currency format
     function formatINR(amount) {
         return `₹${amount.toLocaleString("en-IN")}`;
     }
 
-    // 3. Live Calculation & Summary Update Function
     function updateBookingSummary(triggerToast = true) {
         if (!matchSelect || !standSelect || !qtyInput) return;
 
@@ -56,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const matchValue = matchSelect.value;
         const standValue = standSelect.value;
 
-        // Clamp ticket quantity between 1 and 6
         let quantity = parseInt(qtyInput.value, 10);
         if (isNaN(quantity) || quantity < 1) quantity = 1;
         if (quantity > 6) {
@@ -64,7 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
             qtyInput.value = 6;
         }
 
-        // Determine unit ticket price based on selected match and stand
         let unitPrice = 0;
         if (standValue === "General") {
             unitPrice = Number(selectedMatchOption.dataset.general) || 1500;
@@ -76,7 +145,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const totalAmount = unitPrice * quantity;
 
-        // Update DOM elements inside Booking Summary Card
         summaryMatch.textContent = matchValue || "Not Selected";
         summaryStand.textContent = standValue
             ? standSelect.options[standSelect.selectedIndex].text
@@ -85,7 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
         summaryQty.textContent = quantity;
         summaryTotal.textContent = formatINR(totalAmount);
 
-        // Confirm update with toast notification
         if (triggerToast) {
             showToast(
                 `Summary updated: ${quantity}x ${standValue || "Ticket"} (${formatINR(totalAmount)})`,
@@ -94,43 +161,33 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Attach 'change' & 'input' listeners to form controls
-    if (matchSelect) {
-        matchSelect.addEventListener("change", () => updateBookingSummary(true));
-    }
-    if (standSelect) {
-        standSelect.addEventListener("change", () => updateBookingSummary(true));
-    }
+    if (matchSelect) matchSelect.addEventListener("change", () => updateBookingSummary(true));
+    if (standSelect) standSelect.addEventListener("change", () => updateBookingSummary(true));
     if (qtyInput) {
         qtyInput.addEventListener("change", () => updateBookingSummary(true));
         qtyInput.addEventListener("input", () => updateBookingSummary(false));
     }
 
-    // 4. Match Schedule "Book" Buttons -> Smooth scroll + pre-select + live update
+    /* ---------------------------------------------------------
+       D. Match Card "Book" Buttons -> Smooth Scroll & Pre-select
+       --------------------------------------------------------- */
     const scheduleBookButtons = document.querySelectorAll(".schedule-book-btn");
 
     scheduleBookButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
             event.preventDefault();
 
-            const row = button.closest("tr");
-            const matchNo = row.cells[0].textContent.trim();
-            const teams = row.cells[1].textContent.trim();
-            const matchLabel = `${matchNo}: ${teams}`;
+            const card = button.closest(".match-card");
+            const matchLabel = card ? card.dataset.matchValue : "";
 
             if (bookingSection) {
                 bookingSection.scrollIntoView({ behavior: "smooth", block: "start" });
             }
 
-            if (matchSelect) {
-                Array.from(matchSelect.options).forEach((option) => {
-                    if (option.value.includes(teams) || option.text.includes(teams)) {
-                        matchSelect.value = option.value;
-                    }
-                });
+            if (matchSelect && matchLabel) {
+                matchSelect.value = matchLabel;
             }
 
-            // Default to General stand if no stand is selected yet
             if (standSelect && !standSelect.value) {
                 standSelect.value = "General";
             }
@@ -140,7 +197,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Hero "Book Ticket" Button -> Smooth scroll
     const heroBookBtn = document.querySelector('.hero-actions a[href="#book-ticket"]');
     if (heroBookBtn && bookingSection) {
         heroBookBtn.addEventListener("click", (event) => {

@@ -8,11 +8,24 @@
 </head>
 <body>
 
-    <!-- 1. Navigation Bar -->
+    <!-- 1. Responsive Flexbox Navigation Bar with Hamburger Menu -->
     <header>
         <nav aria-label="Primary Navigation">
             <div class="logo">IPL 2026 Tickets</div>
-            <ul>
+
+            <!-- Hamburger Button (Visible on Mobile/Tablet) -->
+            <button
+                type="button"
+                id="menu-toggle"
+                class="hamburger-btn"
+                aria-label="Toggle Navigation Menu"
+                aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul id="nav-links" class="nav-links">
                 <li><a href="#matches">Matches</a></li>
                 <li><a href="#book-ticket">Book Ticket</a></li>
                 <li><a href="booking.html">Full Booking Page</a></li>
@@ -60,63 +73,64 @@
             </div>
         </section>
 
-        <!-- 4 & 5. Match Schedule Section with Team Filter & Book Buttons -->
+        <!-- 4 & 5. Match Schedule Section (CSS Grid Cards + Team Filter + Grid/List Toggle) -->
         <section id="matches">
             <h2>Match Schedule</h2>
 
-            <!-- Team Filter -->
-            <div class="filter-bar">
-                <label for="team-filter"><strong>Filter by Team:</strong></label>
-                <select id="team-filter" name="team-filter">
-                    <option value="all">All Teams</option>
-                    <option value="CSK">Chennai Super Kings (CSK)</option>
-                    <option value="MI">Mumbai Indians (MI)</option>
-                    <option value="RCB">Royal Challengers Bengaluru (RCB)</option>
-                    <option value="KKR">Kolkata Knight Riders (KKR)</option>
-                    <option value="SRH">Sunrisers Hyderabad (SRH)</option>
-                </select>
+            <!-- Controls Bar: Team Filter + Grid/List View Toggle -->
+            <div class="schedule-controls">
+                <div class="filter-bar">
+                    <label for="team-filter"><strong>Filter by Team:</strong></label>
+                    <select id="team-filter" name="team-filter">
+                        <option value="all">All Teams</option>
+                        <option value="CSK">Chennai Super Kings (CSK)</option>
+                        <option value="MI">Mumbai Indians (MI)</option>
+                        <option value="RCB">Royal Challengers Bengaluru (RCB)</option>
+                        <option value="KKR">Kolkata Knight Riders (KKR)</option>
+                        <option value="SRH">Sunrisers Hyderabad (SRH)</option>
+                    </select>
+                </div>
+
+                <div class="view-toggle" role="group" aria-label="Layout View Toggle">
+                    <button type="button" id="grid-view-btn" class="view-btn active">Grid View</button>
+                    <button type="button" id="list-view-btn" class="view-btn">List View</button>
+                </div>
             </div>
 
-            <!-- Schedule Table -->
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Match No.</th>
-                            <th>Teams</th>
-                            <th>Date &amp; Time</th>
-                            <th>Venue</th>
-                            <th>Ticket Prices (General / Premium / VIP)</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Match 1</td>
-                            <td>CSK vs RCB</td>
-                            <td>22 Mar 2026, 7:30 PM IST</td>
-                            <td>M. A. Chidambaram Stadium, Chennai</td>
-                            <td>₹1,500 / ₹3,500 / ₹8,000</td>
-                            <td><a href="#book-ticket" class="btn btn-primary schedule-book-btn">Book</a></td>
-                        </tr>
-                        <tr>
-                            <td>Match 2</td>
-                            <td>MI vs KKR</td>
-                            <td>23 Mar 2026, 7:30 PM IST</td>
-                            <td>Wankhede Stadium, Mumbai</td>
-                            <td>₹1,800 / ₹4,000 / ₹9,500</td>
-                            <td><a href="#book-ticket" class="btn btn-primary schedule-book-btn">Book</a></td>
-                        </tr>
-                        <tr>
-                            <td>Match 3</td>
-                            <td>RCB vs SRH</td>
-                            <td>25 Mar 2026, 7:30 PM IST</td>
-                            <td>M. Chinnaswamy Stadium, Bengaluru</td>
-                            <td>₹2,000 / ₹4,500 / ₹10,000</td>
-                            <td><a href="#book-ticket" class="btn btn-primary schedule-book-btn">Book</a></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- Match Cards Grid Container -->
+            <div id="match-cards-container" class="match-grid">
+                <article class="match-card" data-teams="CSK RCB" data-match-value="Match 1: CSK vs RCB">
+                    <div class="match-card-header">
+                        <span class="match-badge">Match 1</span>
+                        <span class="match-date">22 Mar 2026 • 7:30 PM IST</span>
+                    </div>
+                    <h3 class="match-teams">CSK vs RCB</h3>
+                    <p class="match-venue">M. A. Chidambaram Stadium, Chennai</p>
+                    <p class="match-prices"><strong>Tickets:</strong> ₹1,500 / ₹3,500 / ₹8,000</p>
+                    <a href="#book-ticket" class="btn btn-primary schedule-book-btn">Book</a>
+                </article>
+
+                <article class="match-card" data-teams="MI KKR" data-match-value="Match 2: MI vs KKR">
+                    <div class="match-card-header">
+                        <span class="match-badge">Match 2</span>
+                        <span class="match-date">23 Mar 2026 • 7:30 PM IST</span>
+                    </div>
+                    <h3 class="match-teams">MI vs KKR</h3>
+                    <p class="match-venue">Wankhede Stadium, Mumbai</p>
+                    <p class="match-prices"><strong>Tickets:</strong> ₹1,800 / ₹4,000 / ₹9,500</p>
+                    <a href="#book-ticket" class="btn btn-primary schedule-book-btn">Book</a>
+                </article>
+
+                <article class="match-card" data-teams="RCB SRH" data-match-value="Match 3: RCB vs SRH">
+                    <div class="match-card-header">
+                        <span class="match-badge">Match 3</span>
+                        <span class="match-date">25 Mar 2026 • 7:30 PM IST</span>
+                    </div>
+                    <h3 class="match-teams">RCB vs SRH</h3>
+                    <p class="match-venue">M. Chinnaswamy Stadium, Bengaluru</p>
+                    <p class="match-prices"><strong>Tickets:</strong> ₹2,000 / ₹4,500 / ₹10,000</p>
+                    <a href="#book-ticket" class="btn btn-primary schedule-book-btn">Book</a>
+                </article>
             </div>
         </section>
 
@@ -127,7 +141,6 @@
                 Quick-book below or open the <a href="booking.html" style="color: var(--primary-color); font-weight: 700;">Dedicated Booking Form Page</a> for add-on preferences.
             </p>
             <div class="booking-container">
-                <!-- Ticket Booking Form -->
                 <form id="quick-booking-form" action="#my-bookings" method="get">
                     <div class="form-group">
                         <label for="match-select">Select Match</label>
@@ -225,7 +238,7 @@
             </div>
         </section>
 
-        <!-- 9. Guidelines Section -->
+        <!-- 9. Guidelines Section (3-Column CSS Grid on Desktop) -->
         <section id="guidelines">
             <h2>Stadium &amp; Ticketing Guidelines</h2>
             <div class="guidelines-grid">
@@ -252,7 +265,6 @@
         <p>&copy; 2026 IPL Ticket Booking Portal. All Rights Reserved.</p>
     </footer>
 
-    <!-- Link External JavaScript -->
     <script src="app.js"></script>
 </body>
 </html>
