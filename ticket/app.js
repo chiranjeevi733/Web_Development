@@ -43,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
             menuToggle.setAttribute("aria-expanded", String(isOpen));
         });
 
-        // Close mobile menu when a navigation link is clicked
         navLinks.querySelectorAll("a").forEach((link) => {
             link.addEventListener("click", () => {
                 navLinks.classList.remove("active");

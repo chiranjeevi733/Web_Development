@@ -89,7 +89,6 @@ nav {
     color: var(--primary-color);
 }
 
-/* Hamburger Button (Hidden on Desktop) */
 .hamburger-btn {
     display: none;
     flex-direction: column;
@@ -184,15 +183,6 @@ nav {
     color: var(--primary-color);
 }
 
-.btn-reset {
-    background-color: #e2e8f0;
-    color: var(--text-color);
-}
-
-.btn-reset:hover {
-    background-color: #cbd5e1;
-}
-
 /* =========================================================
    5. Main Layout & Section Cards
    ========================================================= */
@@ -226,7 +216,6 @@ h3 {
     margin-bottom: 0.65rem;
 }
 
-/* About Section Grid */
 .about-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -290,7 +279,6 @@ h3 {
     color: #ffffff;
 }
 
-/* Default 3-Column CSS Grid for Match Cards */
 .match-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -351,7 +339,7 @@ h3 {
     color: var(--text-color);
 }
 
-/* List View Mode (Toggled via JavaScript) */
+/* List View Mode */
 .match-grid.list-view {
     grid-template-columns: 1fr;
 }
@@ -565,7 +553,6 @@ footer {
    11. Responsive Media Queries (Tablets & Mobile Phones)
    ========================================================= */
 @media (max-width: 900px) {
-    /* Show Hamburger Button & Collapse Nav Menu */
     .hamburger-btn {
         display: flex;
     }
