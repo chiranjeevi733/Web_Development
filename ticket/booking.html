@@ -4,62 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPL 2026 - Ticket Booking Form</title>
-    <!-- Reuse existing dark-blue & gold stylesheet -->
     <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Supplementary styles for radio/checkbox groups & validation feedback */
-        .option-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.25rem;
-            margin-top: 0.4rem;
-        }
-        .option-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            font-weight: 500;
-            cursor: pointer;
-            color: var(--text-color);
-        }
-        .option-label input[type="radio"],
-        .option-label input[type="checkbox"] {
-            width: auto;
-            accent-color: var(--primary-color);
-            cursor: pointer;
-        }
-        .form-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .btn-reset {
-            background-color: #e2e8f0;
-            color: var(--text-color);
-        }
-        .btn-reset:hover {
-            background-color: #cbd5e1;
-        }
-        /* Highlight invalid fields after user interaction */
-        input:user-invalid, select:user-invalid {
-            border-color: #dc2626;
-            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
-        }
-        input:user-valid, select:user-valid {
-            border-color: #16a34a;
-        }
-        .hint {
-            display: block;
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-        }
-    </style>
 </head>
 <body>
 
-    <!-- Fixed Navigation Bar linked back to index.html -->
+    <!-- Fixed Navigation Bar -->
     <header>
         <nav aria-label="Primary Navigation">
             <div class="logo">IPL 2026 Tickets</div>
@@ -91,7 +40,7 @@
                             type="text"
                             id="full-name"
                             name="fullName"
-                            placeholder="Enter your full name (e.g., Chiranjeevi H L)"
+                            placeholder="Enter your full name"
                             minlength="3"
                             maxlength="50"
                             pattern="[A-Za-z\s.]+"
@@ -207,7 +156,7 @@
                     </div>
                 </form>
 
-                <!-- Booking Guidelines & Validation Checklist Card -->
+                <!-- Booking Rules Card -->
                 <aside class="summary-card" aria-label="Booking Instructions">
                     <h3>Booking Rules</h3>
                     <div class="summary-item">
@@ -239,5 +188,6 @@
         <p>&copy; 2026 IPL Ticket Booking Portal. All Rights Reserved.</p>
     </footer>
 
+    <script src="app.js"></script>
 </body>
 </html>
